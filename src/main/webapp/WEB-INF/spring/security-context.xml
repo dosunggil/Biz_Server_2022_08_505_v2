@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security-5.3.xsd">
+
+	<!-- Security pattern, login, logout 을 설정하는 부분 -->
+	<sec:http>
+		<sec:intercept-url pattern="/user/join" access="permitAll"/>
+		<sec:intercept-url pattern="/user/login" access="isAnonymous()"/>
+		<sec:intercept-url pattern="/user/mypage" access="isAuthenticated()"/>
+		<sec:intercept-url pattern="/admin/**" access="isAuthenticated() AND hasRole('ROLE_ADMIN')"/>
+		<sec:intercept-url pattern="/" access="isAuthenticated()"/>
+		
+		<sec:form-login />
+		<sec:logout />
+	</sec:http>
+	
+	<sec:authentication-manager>
+		<sec:authentication-provider>
+		
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+
+</beans>
